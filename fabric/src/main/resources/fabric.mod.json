@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "vs_eureka",
+  "version": "${version}",
+  "name": "VS Eureka Mod",
+  "description": "Basically Archimedes Ships, but with VS2 as the backend!",
+  "authors": [
+    "ewoudje",
+    "Tri0de",
+    "Rubydesic"
+  ],
+  "contributors": [
+    "Copper",
+    "Anarava",
+    "VS Discord"
+  ],
+  "contact": {
+    "homepage": "https://valkyrienskies.org/",
+    "sources": "https://github.com/ValkyrienSkies/Eureka"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/vs_eureka/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "org.mashed.islands.fabric.IslandModFabric"
+    ],
+    "client": [
+      "org.mashed.islands.fabric.IslandModFabric${'$'}Client"
+    ],
+    "preLaunch": [
+      "org.mashed.islands.fabric.ValkyrienPreLaunch"
+    ],
+    "modmenu": [
+      "org.mashed.islands.fabric.IslandModFabric${'$'}ModMenu"
+    ]
+  },
+  "mixins": [
+    "vs_islands-common.mixins.json",
+    "vs_islands.mixins.json"
+  ],
+  "depends": {
+    "minecraft": ">=1.18.2",
+    "valkyrienskies": ">=${vs2_version}"
+  }
+}
