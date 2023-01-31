@@ -1,9 +1,9 @@
 {
   "required": true,
-  "package": "org.valkyrienskies.eureka.mixin",
+  "package": "org.mashed.islands.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "client.PlayerEntityModelMixin"
+    "NoiseSettingsAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

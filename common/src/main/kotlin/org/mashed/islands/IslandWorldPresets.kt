@@ -20,7 +20,7 @@ object IslandWorldPresets {
         val biomes = registry.registryOrThrow(Registry.BIOME_REGISTRY)
         val structures = registry.registryOrThrow(Registry.STRUCTURE_SET_REGISTRY)
 
-        VoidLevelSource(structures, FixedBiomeSource(biomes.getHolderOrThrow(Biomes.PLAINS)), seed)
+        VoidLevelSource(structures, FixedBiomeSource(biomes.getHolderOrThrow(Biomes.THE_VOID)), seed)
     })
 
     private fun register(name: String, preset: WorldPreset): WorldPreset {
