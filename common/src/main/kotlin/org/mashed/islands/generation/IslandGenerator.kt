@@ -91,74 +91,14 @@ class IslandGenerator(val seed: Long) {
     }
 
     fun generateIsland(islandBuilder: IslandBuilder, island: IslandState) {
-        buildSurface(islandBuilder, island)
-        buildRock(islandBuilder, island)
-    }
+        val shape = island.generateShape()
 
-    private fun buildSurface(islandBuilder: IslandBuilder, island: IslandState) {
-        val layer = island.surfaceLayer
-        val hsize = island.size / 2f
-        val isize = island.size.toInt()
-        val half = isize / 2
-
-        repeat(isize) { x_ ->
-            repeat(isize) { z_ ->
-                val x = x_ - half
-                val z = z_ - half
-
-                val fHeight = layer.getHeight(x / hsize, z / hsize)
-                if (fHeight > 0.1f) {
-                    val height = (fHeight * island.topThickness).toInt() + 1
-
-                    if (fHeight < 0.2f) {
-                        generateStone(islandBuilder, x, z, height)
-                    } else repeat(height) { y ->
-                        if (height - 1 == y)
-                            generateSurfaceGrass(islandBuilder, x, y, z)
-                        else
-                            generateSemiDeep(islandBuilder, x, y, z)
-                    }
-                }
-            }
+        val iterations = 5
+        repeat(iterations) {
+            island.iterateShape(shape)
         }
-    }
 
-    private fun buildRock(islandBuilder: IslandBuilder, island: IslandState) {
-        val layer = island.rockLayer
-        val hsize = island.size / 2f
-        val isize = island.size.toInt()
-        val half = isize / 2
-
-        repeat(isize) { x_ ->
-            repeat(isize) { z_ ->
-                val x = x_ - half
-                val z = z_ - half
-
-                val height = (layer.getHeight(x / hsize, z / hsize) * 6).toInt()
-
-                repeat(height) { y ->
-                    generateStone(islandBuilder, x, -y - 1, z)
-                }
-            }
-        }
-    }
-
-    private fun generateSurfaceGrass(islandBuilder: IslandBuilder, x: Int, y: Int, z: Int) {
-        val state = Blocks.GRASS_BLOCK.defaultBlockState()
-
-        islandBuilder.setBlock(x, y, z, state)
-    }
-
-    private fun generateSemiDeep(islandBuilder: IslandBuilder, x: Int, y: Int, z: Int) {
-        val state = Blocks.DIRT.defaultBlockState()
-
-        islandBuilder.setBlock(x, y, z, state)
-    }
-
-    private fun generateStone(islandBuilder: IslandBuilder, x: Int, y: Int, z: Int) {
-        val state = Blocks.STONE.defaultBlockState()
-
-        islandBuilder.setBlock(x, y, z, state)
+        island.applyShape(shape, islandBuilder)
     }
 
     companion object {

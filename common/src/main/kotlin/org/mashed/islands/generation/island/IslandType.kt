@@ -1,10 +1,11 @@
 package org.mashed.islands.generation.island
 
-import org.mashed.islands.generation.layer.HeightMapLayer
+import org.mashed.islands.generation.IslandBuilder
 
 interface IslandType {
     val sizeRange: IntRange
-    fun makeIslandSurfaceLayer(island: IslandState): HeightMapLayer
-    fun makeIslandRockLayer(island: IslandState): HeightMapLayer
-    fun getTopThickness(island: IslandState): Int = 4
+
+    fun generateShape(state: IslandState): IslandShape
+    fun iterateShape(state: IslandState, shape: IslandShape)
+    fun applyShape(state: IslandState, shape: IslandShape, stateSetter: IslandBuilder)
 }
