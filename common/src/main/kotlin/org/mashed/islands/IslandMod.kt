@@ -1,11 +1,13 @@
 package org.valkyrienskies.eureka
 
 import net.fabricmc.api.Environment
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import org.mashed.islands.IslandChunkGenerators
 import org.mashed.islands.IslandCommands
 import org.mashed.islands.IslandWorldPresets
+import org.mashed.islands.generation.island.IslandType
 import org.mashed.lasagna.api.events.RegistryEvents
-import org.mashed.lasagna.api.registry.SpecialRegistries
 import org.valkyrienskies.core.impl.config.VSConfigClass
 
 
@@ -31,4 +33,6 @@ object IslandMod {
     fun initClient() {
 
     }
+
+    fun String.id() = ResourceLocation(MOD_ID, this)
 }

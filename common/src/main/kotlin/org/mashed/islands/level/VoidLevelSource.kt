@@ -32,11 +32,6 @@ import java.util.function.Supplier
 class VoidLevelSource(structureSets: Registry<StructureSet>, biomeSource: BiomeSource, val seed: Long) :
     ChunkGenerator(structureSets, Optional.empty(), biomeSource) {
 
-    val islandGenerator = IslandGenerator(seed)
-    val noiseSettings = BuiltinRegistries.NOISE_GENERATOR_SETTINGS.get(NoiseGeneratorSettings.FLOATING_ISLANDS)!!
-    val noiseRouter = noiseSettings.noiseRouter
-    val worldgenRandom = WorldgenRandom(LegacyRandomSource(RandomSupport.seedUniquifier()))
-
     override fun codec(): Codec<out ChunkGenerator> = CODEC
 
     override fun withSeed(seed: Long): ChunkGenerator = VoidLevelSource(this.structureSets, biomeSource, seed)
@@ -50,10 +45,7 @@ class VoidLevelSource(structureSets: Registry<StructureSet>, biomeSource: BiomeS
         structureFeatureManager: StructureFeatureManager,
         chunk: ChunkAccess,
         step: GenerationStep.Carving
-    ) {
-        if (worldgenRandom.nextInt(500) == 1)
-            islandGenerator.makeIsland(level, chunk.pos.x, worldgenRandom.nextInt(0, 120), chunk.pos.z, level.server!!)
-    }
+    ) {}
 
     override fun buildSurface(
         level: WorldGenRegion,

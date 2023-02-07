@@ -10,7 +10,7 @@ import org.valkyrienskies.eureka.IslandMod
 object IslandChunkGenerators {
     private val GENERATORS = DeferredRegister.create(IslandMod.MOD_ID, Registry.CHUNK_GENERATOR_REGISTRY)
 
-    val VOID_WORLD = register("void_islands", VoidLevelSource.CODEC)
+    val VOID_WORLD = register("void", VoidLevelSource.CODEC)
     private fun register(name: String, codec: Codec<out ChunkGenerator>) =
         GENERATORS.register(name) { codec }
 
