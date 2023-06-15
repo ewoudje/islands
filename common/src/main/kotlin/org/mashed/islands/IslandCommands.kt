@@ -6,16 +6,11 @@ import com.mojang.brigadier.context.CommandContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands.*
 import net.minecraft.commands.arguments.ResourceKeyArgument
-import net.minecraft.core.Registry
 import net.minecraft.network.chat.TextComponent
 import net.minecraft.resources.ResourceKey
-import net.minecraft.world.entity.player.Player
 import org.joml.Vector3i
 import org.mashed.islands.generation.IslandGenerator
-import org.mashed.islands.generation.island.IslandState
-import org.mashed.islands.generation.island.PlainIsland
-import org.valkyrienskies.eureka.IslandMod
-import org.valkyrienskies.mod.common.util.toJOML
+import org.mashed.islands.generation.island.GeneratingIsland
 import kotlin.random.Random
 
 object IslandCommands {
@@ -38,12 +33,10 @@ object IslandCommands {
             .cast(IslandTypes.ISLAND_TYPE_REGISTRY).orElseThrow()
 
         val fetchedType = source.registryAccess().registryOrThrow(IslandTypes.ISLAND_TYPE_REGISTRY).getOrThrow(type)
-        val island = IslandState(FloatArgumentType.getFloat(ctx, "size"), Random.nextInt(), fetchedType)
+        val size = FloatArgumentType.getFloat(ctx, "size")
 
         try {
-            val builder = generator.startIsland(level, Vector3i(pos.x, 0, pos.z))
-            generator.generateIsland(builder, island)
-            builder.clean()
+            generator.makeIsland(level, Vector3i(pos.x, 0, pos.z), fetchedType, size)
         } catch (t: Throwable) {
             t.printStackTrace()
             source.sendFailure(TextComponent(t.message!!))

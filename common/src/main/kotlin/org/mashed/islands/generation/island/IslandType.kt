@@ -1,11 +1,12 @@
 package org.mashed.islands.generation.island
 
 import org.mashed.islands.generation.IslandBuilder
+import org.mashed.lasagna.api.registry.RegistryItem
 
-interface IslandType {
+interface IslandType: RegistryItem<IslandType> {
     val sizeRange: IntRange
 
-    fun generateShape(state: IslandState): IslandShape
-    fun iterateShape(state: IslandState, shape: IslandShape)
-    fun applyShape(state: IslandState, shape: IslandShape, stateSetter: IslandBuilder)
+    fun generateShape(island: GeneratingIsland): IslandShape
+    fun iterateShape(island: GeneratingIsland, shape: IslandShape)
+    fun applyShape(island: GeneratingIsland, shape: IslandShape, stateSetter: IslandBuilder)
 }

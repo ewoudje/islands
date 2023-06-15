@@ -1,4 +1,4 @@
-package org.valkyrienskies.eureka
+package org.mashed.islands
 
 import net.minecraft.core.Registry
 import net.minecraft.world.item.BlockItem
@@ -10,7 +10,7 @@ import org.mashed.lasagna.api.registry.DeferredRegister
 
 @Suppress("unused")
 object IslandBlocks {
-    private val BLOCKS = DeferredRegister.create(IslandMod.MOD_ID, Registry.BLOCK_REGISTRY)
+    private val BLOCKS = DeferredRegister(IslandMod.MOD_ID, Registry.BLOCK_REGISTRY)
 
     val EWOUDJIUM = BLOCKS.register("ewoudjium") { Block(BlockBehaviour.Properties.of(Material.AMETHYST)) }
 

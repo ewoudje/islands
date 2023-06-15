@@ -1,4 +1,4 @@
-package org.valkyrienskies.eureka
+package org.mashed.islands
 
 object IslandConfig {
     @JvmField

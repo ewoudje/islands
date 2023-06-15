@@ -1,4 +1,4 @@
-package org.valkyrienskies.eureka
+package org.mashed.islands
 
 import net.minecraft.Util
 import net.minecraft.core.BlockPos
@@ -13,7 +13,7 @@ import org.mashed.lasagna.api.registry.RegistrySupplier
 
 @Suppress("unused")
 object IslandBlockEntities {
-    private val BLOCKENTITIES = DeferredRegister.create(IslandMod.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY)
+    private val BLOCKENTITIES = DeferredRegister(IslandMod.MOD_ID, Registry.BLOCK_ENTITY_TYPE_REGISTRY)
 
     //val ENGINE = IslandBlocks.ENGINE withBE ::EngineBlockEntity byName "engine"
 

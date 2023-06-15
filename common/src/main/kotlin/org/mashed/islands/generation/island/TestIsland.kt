@@ -1,5 +1,6 @@
 package org.mashed.islands.generation.island
 
+import net.minecraft.resources.ResourceLocation
 import org.joml.Vector2f
 import org.mashed.islands.generation.layer.CircleLayer
 import org.mashed.islands.generation.layer.FixedLayer
@@ -9,7 +10,7 @@ import org.mashed.islands.generation.layer.cutoff
 import org.mashed.islands.generation.layer.erode
 
 object TestIsland : DoubleLayerIsland( 5..50) {
-    override fun makeIslandSurfaceLayer(island: IslandState): HeightMapLayer =
+    override fun makeIslandSurfaceLayer(island: GeneratingIsland): HeightMapLayer =
         PerlinLayer(island.seed, 1.5f, 2)
             .mask(FixedLayer(2f))
             .mask(CircleLayer(0.95f, 0.5f, 1f, Vector2f(0f, 0f)))
@@ -19,10 +20,12 @@ object TestIsland : DoubleLayerIsland( 5..50) {
 
 
 
-    override fun makeIslandRockLayer(island: IslandState): HeightMapLayer =
+    override fun makeIslandRockLayer(island: GeneratingIsland): HeightMapLayer =
         makeIslandSurfaceLayer(island)
             .mask(FixedLayer(1.5f + island.size * 0.3f))
             .mask(CircleLayer(0.9f, 0.1f, 1f, Vector2f(0f, 0f)))
             .mask(PerlinLayer(island.seed xor 0xDEADBEEF.toInt(), 8f, 4))
             .erode(1, 0.02f)
+
+    override var id: ResourceLocation? = null
 }

@@ -8,9 +8,9 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.mashed.islands.IslandConfig;
+import org.mashed.islands.IslandMod;
 import org.valkyrienskies.core.impl.config.VSConfigClass;
-import org.valkyrienskies.eureka.IslandConfig;
-import org.valkyrienskies.eureka.IslandMod;
 import org.valkyrienskies.mod.compat.clothconfig.VSClothConfig;
 
 @Mod(IslandMod.MOD_ID)

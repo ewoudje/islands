@@ -1,32 +1,27 @@
 package org.mashed.islands.generation.island
 
 import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.state.BlockState
-import org.joml.Vector2f
 import org.mashed.islands.generation.IslandBuilder
-import org.mashed.islands.generation.layer.CircleLayer
 import org.mashed.islands.generation.layer.HeightMapLayer
-import org.mashed.islands.generation.layer.PerlinLayer
-import org.mashed.islands.generation.layer.erode
 
 abstract class DoubleLayerIsland(override val sizeRange: IntRange) : IslandType {
 
-    override fun generateShape(state: IslandState): IslandShape {
-        val surfaceLayer = makeIslandSurfaceLayer(state)
-        val rockLayer = makeIslandRockLayer(state)
+    override fun generateShape(island: GeneratingIsland): IslandShape {
+        val surfaceLayer = makeIslandSurfaceLayer(island)
+        val rockLayer = makeIslandRockLayer(island)
         val shape = IslandShape()
 
-        sample(state, shape, surfaceLayer)
-        sample(state, shape, rockLayer) { -it - 1 }
+        sample(island, shape, surfaceLayer)
+        sample(island, shape, rockLayer) { -it - 1 }
 
         return shape
     }
 
-    override fun iterateShape(state: IslandState, shape: IslandShape) {
+    override fun iterateShape(island: GeneratingIsland, shape: IslandShape) {
         //NOTHING
     }
 
-    override fun applyShape(state: IslandState, shape: IslandShape, builder: IslandBuilder) {
+    override fun applyShape(island: GeneratingIsland, shape: IslandShape, builder: IslandBuilder) {
         shape.forEach { x, y, z -> builder.setBlock(x,y,z, Blocks.STONE.defaultBlockState()) }
         shape.forEachSurface { x, y, z ->
             builder.setBlock(x, y, z, Blocks.GRASS_BLOCK.defaultBlockState())
@@ -36,10 +31,18 @@ abstract class DoubleLayerIsland(override val sizeRange: IntRange) : IslandType 
                 if (shape.contains(x, nY -1, z))
                     builder.setBlock(x, nY, z, Blocks.DIRT.defaultBlockState())
             }
+
+            val grassy = builder.random.nextFloat()
+            if (grassy < 0.3f) {
+                if (grassy < 0.05f)
+                    builder.setBlock(x, y + 1, z, Blocks.POPPY.defaultBlockState())
+                else
+                    builder.setBlock(x, y + 1, z, Blocks.GRASS.defaultBlockState())
+            }
         }
     }
 
-    protected fun sample(state: IslandState, shape: IslandShape, layer: HeightMapLayer, yMan: (Int) -> Int = { it }) {
+    protected fun sample(state: GeneratingIsland, shape: IslandShape, layer: HeightMapLayer, yMan: (Int) -> Int = { it }) {
         val hsize = state.size / 2f
         val isize = state.size.toInt()
         val half = isize / 2
@@ -59,6 +62,6 @@ abstract class DoubleLayerIsland(override val sizeRange: IntRange) : IslandType 
     }
 
 
-    abstract fun makeIslandSurfaceLayer(island: IslandState): HeightMapLayer
-    abstract fun makeIslandRockLayer(island: IslandState): HeightMapLayer
+    abstract fun makeIslandSurfaceLayer(island: GeneratingIsland): HeightMapLayer
+    abstract fun makeIslandRockLayer(island: GeneratingIsland): HeightMapLayer
 }

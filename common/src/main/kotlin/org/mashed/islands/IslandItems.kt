@@ -1,5 +1,4 @@
-package org.valkyrienskies.eureka
-
+package org.mashed.islands
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.CreativeModeTab
@@ -10,7 +9,7 @@ import org.mashed.lasagna.api.registry.DeferredRegister
 
 @Suppress("unused")
 object IslandItems {
-    private val ITEMS = DeferredRegister.create(IslandMod.MOD_ID, Registry.ITEM_REGISTRY)
+    private val ITEMS = DeferredRegister(IslandMod.MOD_ID, Registry.ITEM_REGISTRY)
     val TAB: CreativeModeTab = CreativeTabs.create(
         ResourceLocation(
             IslandMod.MOD_ID,

@@ -92,6 +92,10 @@ class IslandShape {
             }
         }
 
-        private fun sectionIndex(y: Int): Int = (y shr 4) + 8
+        private fun sectionIndex(y: Int): Int {
+            val result = (y shr 4) + 8
+            if (result < 0 || result >= 16) throw IllegalStateException("Invalid section index: $result")
+            return result
+        }
     }
 }

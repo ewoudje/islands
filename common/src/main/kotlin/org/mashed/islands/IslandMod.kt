@@ -1,12 +1,9 @@
-package org.valkyrienskies.eureka
+package org.mashed.islands
 
 import net.fabricmc.api.Environment
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import org.mashed.islands.IslandChunkGenerators
-import org.mashed.islands.IslandCommands
-import org.mashed.islands.IslandWorldPresets
-import org.mashed.islands.generation.island.IslandType
+import org.mashed.islands.generation.MyChunkStatuses
+import org.mashed.lasagna.LasagnaMod
 import org.mashed.lasagna.api.events.RegistryEvents
 import org.valkyrienskies.core.impl.config.VSConfigClass
 
@@ -21,6 +18,7 @@ object IslandMod {
         IslandItems.register()
         IslandWorldPresets.register()
         IslandChunkGenerators.register()
+        MyChunkStatuses.register()
         VSConfigClass.registerConfig("vs_islands", IslandConfig::class.java)
 
         RegistryEvents.onServerCommandRegister.register {
@@ -34,5 +32,5 @@ object IslandMod {
 
     }
 
-    fun String.id() = ResourceLocation(MOD_ID, this)
+    internal val String.resource: ResourceLocation get() = ResourceLocation(LasagnaMod.MOD_ID, this)
 }

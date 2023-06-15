@@ -31,9 +31,9 @@ dependencies {
     // Mod menu
     modImplementation("com.terraformersmc:modmenu:3.2.3")
     modImplementation("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
+
     modImplementation("org.mashed:lasagna-fabric:${rootProject.lasagna_version}")
 
-    // Remove the next line if you don't want to depend on the API
     modApi("org.valkyrienskies:valkyrienskies-118-fabric:${rootProject.vs2_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
